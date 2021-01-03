@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -14,6 +15,9 @@ public class Game extends Canvas implements Runnable{
     private boolean running = false;
     private Display hud;
 
+    static boolean win1 = false;
+    static boolean win2 = false;
+
     public Game() {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
@@ -22,8 +26,8 @@ public class Game extends Canvas implements Runnable{
 
         hud = new Display(handler);
 
-        handler.addObject(new Player(WIDTH / 2 - 600, HEIGHT / 2 - 100, ID.Player1, handler));
-        handler.addObject(new Player(WIDTH / 2 + 600, HEIGHT / 2 - 100, ID.Player2, handler));
+        handler.addObject(new Player(WIDTH / 2 - 600, HEIGHT / 2 - 80, ID.Player1, handler));
+        handler.addObject(new Player(WIDTH / 2 + 600, HEIGHT / 2 - 80, ID.Player2, handler));
         handler.addObject(new Ball(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Ball, handler));
     }
 
@@ -58,8 +62,23 @@ public class Game extends Canvas implements Runnable{
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        g.setColor(Color.white);
+        for (int y = 0; y < HEIGHT; y += 45) {
+            g.fillRect(Game.WIDTH / 2 - 30, y, 20, 20);
+        }
+
         handler.render(g);
         hud.render(g);
+
+        if (win1) {
+            g.setColor(Color.green);
+            g.setFont(new Font("Helvetia", Font.BOLD, 150));
+            g.drawString(" Player 1 wins!", WIDTH / 2 - 580, HEIGHT / 2 + 10);
+        } else if (win2) {
+            g.setColor(Color.green);
+            g.setFont(new Font("Helvetia", Font.BOLD, 150));
+            g.drawString(" Player 2 wins!", WIDTH / 2 - 580, HEIGHT / 2 + 10);
+        }
 
         g.dispose();
         bs.show();

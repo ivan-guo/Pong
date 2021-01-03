@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Display {
@@ -7,6 +8,7 @@ public class Display {
 
     private int points1 = 0;
     private int points2 = 0;
+    private int fontsize = 150;
 
     public Display(Handler handler) {
         this.handler = handler;
@@ -18,23 +20,28 @@ public class Display {
 
             if (object.getId() == ID.Ball) {
                 if (object.getX() < 0) {
-                    points1 += 1;
+                    points2 += 1;
                 }
 
                 if (object.getX() > Game.WIDTH) {
-                    points2 += 1;
+                    points1 += 1;
                 }
             }
+        }
+
+        if (points1 >= 11) {
+            handler.clearDisplay();
+            Game.win1 = true;
+        } else if (points2 >= 11) {
+            handler.clearDisplay();
+            Game.win2 = true;
         }
     }
 
     public void render(Graphics g) {
         g.setColor(Color.white);
-        g.drawRect(Game.WIDTH / 2 - 120, 20, 200, 32);
-
-        g.setColor(Color.green);
-        g.drawString("P1 : " + points1, Game.WIDTH / 2 - 90, 40);
-        g.drawString("P2 : " + points2, Game.WIDTH / 2 + 15, 40);
-
+        g.setFont(new Font("Helvetia", Font.BOLD, fontsize));
+        g.drawString("" + points1, Game.WIDTH / 2 - 200, 125);
+        g.drawString(""+ points2, Game.WIDTH / 2 + 76, 125);
     }
 }

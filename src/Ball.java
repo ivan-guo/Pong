@@ -14,23 +14,22 @@ public class Ball extends GameObject{
 
         this.handler = handler;
 
-        velX = 7; velY = r.nextInt(10);
+        velX = 5; velY = r.nextInt(40) - 20;
     }
 
     @Override
     public void tick() {
-
         if (x < 0 || x > Game.WIDTH) {
             x = (float) Game.WIDTH / 2 - 32;
             y = (float) Game.HEIGHT / 2 - 32;
 
             if (sideStart.equals("right")) {
                 sideStart = "left";
-                velX = -7;
+                velX = -5;
                 velY = r.nextInt(40) - 20;
             } else if (sideStart.equals("left")) {
                 sideStart = "right";
-                velX = 7;
+                velX = 5;
                 velY = r.nextInt(40) - 20;
             }
         }
@@ -41,8 +40,9 @@ public class Ball extends GameObject{
         if (velX > 0) {
             velX += 0.1;
         } else if (velX < 0) {
-            velY += 0.1;
+            velX -= 0.1;
         }
+        velX = Game.bound(velX, -15, 15);
 
         if (y <= 0 || y >= Game.HEIGHT - 70) velY *= -1;
 
@@ -63,11 +63,11 @@ public class Ball extends GameObject{
     @Override
     public void render(Graphics g) {
         g.setColor(Color.cyan);
-        g.fillOval((int) x, (int) y, 32, 32);
+        g.fillOval((int) x, (int) y, 15, 15);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int) x, (int) y, 32, 32);
+        return new Rectangle((int) x, (int) y, 15, 15);
     }
 }

@@ -13,7 +13,9 @@ public class KeyInput extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
         int key = event.getKeyCode();
 
-        for (GameObject object : handler.objects) {
+        for (int i = 0; i < handler.objects.size(); i++) {
+            GameObject object = handler.objects.get(i);
+
             if (object.getId() == ID.Player1) {
                 if (key == KeyEvent.VK_W) {
                     object.setVelY(-15);

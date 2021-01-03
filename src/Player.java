@@ -15,13 +15,13 @@ public class Player extends GameObject{
     public void tick() {
         y += velY;
 
-        y = Game.bound(y, 0, Game.HEIGHT - 291);
+        y = Game.bound(y, 0, Game.HEIGHT - 240);
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect((int) x, (int) y, 20, 250);
+        g.fillRect((int) x, (int) y, 20, 200);
     }
 
     @Override

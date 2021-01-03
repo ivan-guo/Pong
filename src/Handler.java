@@ -21,6 +21,13 @@ public class Handler {
         }
     }
 
+    public void clearDisplay() {
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject object = objects.get(i);
+            objects.clear();
+        }
+    }
+
     public void addObject(GameObject gameObject) {
         this.objects.add(gameObject);
     }
